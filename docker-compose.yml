@@ -1,0 +1,28 @@
+version: '3'
+
+name: 'spring-todo-project'
+services:
+  db:
+    container_name: 'mysql_db'
+    image: 'mysql/mysql-server:8.0'
+    ports:
+      - '${FORWARD_DB_PORT:-3306}:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: '@Tungta2001'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: 'todo_app'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: '@Tungta2001'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - 'db:/var/lib/mysql'
+    networks:
+      - 'spring-mysql'
+
+networks:
+  spring-mysql:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
