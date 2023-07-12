@@ -1,13 +1,19 @@
-import './App.scss'
-import { Button } from 'react-bootstrap'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AppLayout from "./layouts/AppLayout";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AlertProvider } from "./contexts/AlertProvider";
+
+const queryClient = new QueryClient();
 
 function App() {
-  return (
-    <>
-      <h1 className='hs-1'>Todo App</h1>
-      <Button variant='outline-warning' size='lg'>Add Task</Button>
-    </>
-  )
+    return (
+        <AlertProvider>
+            <QueryClientProvider client={queryClient}>
+                <AppLayout />;
+                <ReactQueryDevtools />
+            </QueryClientProvider>
+        </AlertProvider>
+    );
 }
 
-export default App
+export default App;
